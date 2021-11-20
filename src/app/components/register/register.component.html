@@ -1,0 +1,41 @@
+<div class="container">
+  <div class="row justify-content-md-center">
+    <div class="col col-lg-5">
+
+      <form (ngSubmit)="agregarEmpleado()">
+
+        <div class="mb-3">
+          <label for="inputNombre" class="form-label">Nombre</label>
+          <input type="text" class="form-control" id="inputNombre"
+          name="nombre" #nombre="ngModel" [(ngModel)]="usuarioModel.nombre">
+        </div>
+        <div class="mb-3">
+          <label for="inputUsuario" class="form-label">Usuario</label>
+          <input type="text" class="form-control" id="inputUsuario"
+          name="usuario" #usuario="ngModel" [(ngModel)]="usuarioModel.usuario">
+        </div>
+        <div class="mb-3">
+          <label for="inputPuesto" class="form-label">Puesto</label>
+          <input type="text" class="form-control" id="inputPuesto"
+          name="puesto" #nombre="ngModel" [(ngModel)]="usuarioModel.puesto">
+        </div>
+        <div class="mb-3">
+          <label for="inputDepartamento" class="form-label">Departamento</label>
+          <input type="text" class="form-control" id="inputDepartamento"
+          name="departamento" #nombre="ngModel" [(ngModel)]="usuarioModel.departamento">
+        </div>
+
+
+        <div class="mb-3">
+          <label for="inputPassword" class="form-label">Password</label>
+          <input type="password" class="form-control" id="inputPassword"
+          name="password" #password="ngModel" [(ngModel)]="usuarioModel.password">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Registrar</button>
+
+      </form>
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,132 @@
+
+<div class="text-center" role="group" aria-label="Basic example">
+  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AgregarEmpleado">
+    <span class="bi bi-pencil-square"></span> <h3>Agregar Empleado</h3>
+  </button>
+  <button type="button" style="margin: 10px" class="btn btn-primary" routerLink='/inicioProducto' routerLinkActive='active'><h3>Productos</h3></button>
+  <button type="button" class="btn btn-danger"><h3>Generar PDF</h3></button>
+</div>
+
+
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Nombre</th>
+      <th scope="col">Puesto</th>
+      <th scope="col">Departamento</th>
+      <th scope="col">Rol</th>
+      <th scope="col">Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let usua of empleadosList">
+      <th scope="row">{{ usua._id }}</th>
+      <td>{{usua.nombre}}</td>
+      <td>{{usua.puesto}}</td>
+      <td>{{usua.departamento}}</td>
+      <td>{{usua.rol}}</td>
+      <td>
+        <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+
+          <button type="button" class="btn btn-warning" (click)="obtenerEmpleadoId(usua._id)" data-bs-toggle="modal" data-bs-target="#EditarEmpleado">Editar</button>
+          <button type="button" class="btn btn-danger" (click)="obtenerEmpleadoId(usua._id)" data-bs-toggle="modal" data-bs-target="#EliminarEmpleado">Eliminar</button>
+        </div>
+      </td>
+    </tr>
+
+  </tbody>
+</table>
+
+<!-- Modal Agregar-->
+<div class="modal fade " id="AgregarEmpleado" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Agregar Empleado</h5>
+      </div>
+      <div class="modal-body">
+
+        <form>
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Nombre Empleado</label>
+            <input type="text"  class="form-control" name="nombreEmpleado" #nombreEmpleado="ngModel" [(ngModel)]="usuarioIDModel.nombre">
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Puesto Empleado</label>
+            <input type="text"  class="form-control" name="puestoEmpleado" #puestoEmpleado="ngModel" [(ngModel)]="usuarioIDModel.puesto">
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Departamento Empleado</label>
+            <input type="text"  class="form-control" name="departamentoEmpleado" #departamentoEmpleado="ngModel" [(ngModel)]="usuarioIDModel.departamento">
+          </div>
+        </form>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-success" data-bs-dismiss="modal" (click)="agregarEmpleado()">Agregar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--MODAL EDITAR USUARIO-->
+<div class="modal fade" id="EditarEmpleado" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Editar Empleado</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        <form>
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Nombre</label>
+            <input type="text" class="form-control"
+            name="nombre" #nombre="ngModel" [(ngModel)]="usuarioIDModel.nombre">
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Puesto</label>
+            <input type="text" class="form-control"
+            name="puesto" #puesto="ngModel" [(ngModel)]="usuarioIDModel.puesto">
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Departamento</label>
+            <input type="text" class="form-control"
+            name="departamento" #departamento="ngModel" [(ngModel)]="usuarioIDModel.departamento">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" data-bs-dismiss="modal" class="btn btn-primary" (click)="editarEmpleado(usuarioIDModel._id)">Guardar Cambios</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Eliminar -->
+<div class="modal fade" id="EliminarEmpleado" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Eliminar Empleado</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body text-center text-uppercase ">
+        ¿Está seguro de eliminar el empleado?
+
+      </div>
+      <p class="text-center fst-italic"> {{ usuarioIDModel.nombre }}</p>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" >Atras</button>
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
+         (click)="eliminarEmpleado(usuarioIDModel._id)">Eliminar</button>
+      </div>
+    </div>
+  </div>
+</div>
+

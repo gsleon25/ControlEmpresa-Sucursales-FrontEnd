@@ -1,0 +1,203 @@
+<div class="text-center" role="group" aria-label="Basic example">
+  <a class="navbar-brand" href="#"> <img src="/assets/McDonalds.jpg" class="img-fluid" width="150px" height="150px" alt=""></a>
+</div>
+
+
+<div class="text-center" role="group" aria-label="Basic example">
+  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AgregarSucursal">
+    <span class="bi bi-pencil-square"></span> <h3>Agregar Sucursal</h3>
+  </button>
+  <button type="button" style="margin: 10px" class="btn btn-primary" routerLink='/inicioProducto' routerLinkActive='active'><h3>Productos</h3></button>
+  <button type="button" class="btn btn-danger"><h3>Generar PDF</h3></button>
+
+</div>
+
+<div class="container">
+  <div class="row justify-content-md-center">
+    <div class="col col-lg-5">
+
+      <form class="d-flex">
+        <input  class="form-control me-4" type="search" placeholder="Buscar" aria-label="Search">
+        <button  class="btn btn-outline-success" type="submit">Buscar</button>
+      </form>
+
+    </div>
+  </div>
+</div>
+
+<table class="table" >
+  <thead>
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Nombre</th>
+      <th scope="col">Direccion</th>
+      <th scope="col">Usuario</th>
+      <th scope="col">Rol</th>
+      <th scope="col">Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let sucur of sucursalesList">
+      <th scope="row">{{ sucur._id }}</th>
+      <td>{{sucur.nombre}}</td>
+      <td>{{sucur.direccion}}</td>
+      <td>{{sucur.usuario}}</td>
+      <td>{{sucur.rol}}</td>
+      <td>
+        <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+
+          <button type="button" class="btn btn-warning" (click)="obtenerSucursalId(sucur._id)" data-bs-toggle="modal" data-bs-target="#EditarSucursal">Editar</button>
+          <button type="button" class="btn btn-danger" (click)="obtenerSucursalId(sucur._id)" data-bs-toggle="modal" data-bs-target="#EliminarSucursal">Eliminar</button>
+          <button type="button" class="btn btn-primary"  data-bs-toggle="modal" data-bs-target="#VerProductos">Ver Productos</button>
+        </div>
+      </td>
+    </tr>
+
+  </tbody>
+</table>
+
+<!-- Modal VerProductos-->
+<div class="modal fade " id="VerProductos" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Productos Sucursal</h5>
+      </div>
+      <div class="modal-body">
+
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Id</th>
+              <th scope="col">Nombre</th>
+              <th scope="col">Stock</th>
+              <th scope="col">Cantidad Vendida</th>
+              <th scope="col">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let produ of productosList">
+              <th scope="row">{{ produ._id }}</th>
+              <td>{{produ.nombre}}</td>
+              <td>{{produ.stock}}</td>
+              <td>{{produ.cantidadVendida}}
+
+                <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+
+                  <button type="button" class="btn btn-primary" routerLink='/inicioProducto' routerLinkActive='active'>Enviar Producto</button>
+                </div>
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Agregar-->
+<div class="modal fade " id="AgregarSucursal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Agregar Sucursal</h5>
+      </div>
+      <div class="modal-body">
+
+        <form>
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Nombre Sucursal</label>
+            <input type="text"  class="form-control" name="nombreSucursal" #nombreSucursal="ngModel" [(ngModel)]="sucursalIDModel.nombre">
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Direccion Sucursal</label>
+            <input type="text"  class="form-control" name="direccionSucursal" #direccionSucursal="ngModel" [(ngModel)]="sucursalIDModel.direccion">
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Nombre Usuario</label>
+            <input type="text"  class="form-control" name="usuarioSucursal" #usuarioSucursal="ngModel" [(ngModel)]="sucursalIDModel.usuario">
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Contraseña Sucursal</label>
+            <input type="password"  class="form-control" name="contraseñaSucursal" #contraseñaSucursal="ngModel" [(ngModel)]="sucursalIDModel.password">
+          </div>
+        </form>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-success" data-bs-dismiss="modal" (click)="agregarSucursal()">Agregar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--MODAL EDITAR USUARIO-->
+<div class="modal fade" id="EditarSucursal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Editar Sucursal</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        <form>
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Nombre</label>
+            <input type="text" class="form-control"
+            name="nombre" #nombre="ngModel" [(ngModel)]="sucursalIDModel.nombre">
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Direccion</label>
+            <input type="text" class="form-control"
+            name="direccion" #direccion="ngModel" [(ngModel)]="sucursalIDModel.direccion">
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Usuario</label>
+            <input type="text" class="form-control"
+            name="usuario" #usuario="ngModel" [(ngModel)]="sucursalIDModel.usuario">
+          </div>
+          <!--
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Contraseña</label>
+            <input type="password" class="form-control"
+            name="password" #password="ngModel" [(ngModel)]="empresaIDModel.password">
+          </div>
+        -->
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" data-bs-dismiss="modal" class="btn btn-primary" (click)="editarSucursal(sucursalIDModel._id)">Guardar Cambios</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Eliminar -->
+<div class="modal fade" id="EliminarSucursal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Eliminar Sucursal</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body text-center text-uppercase ">
+        ¿Está seguro de eliminar la sucursal?
+
+      </div>
+      <p class="text-center fst-italic"> {{ sucursalIDModel.nombre }}</p>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" >Atras</button>
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
+         (click)="eliminarSucursal(sucursalIDModel._id)">Eliminar</button>
+      </div>
+    </div>
+  </div>
+</div>
